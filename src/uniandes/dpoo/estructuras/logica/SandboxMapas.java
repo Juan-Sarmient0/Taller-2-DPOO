@@ -1,9 +1,12 @@
 package uniandes.dpoo.estructuras.logica;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre mapas.
@@ -41,7 +44,10 @@ public class SandboxMapas
      */
     public List<String> getValoresComoLista( )
     {
-        return null;
+        List<String> temp = new ArrayList<String>(this.mapaCadenas.values());
+        temp.sort(Comparator.naturalOrder());
+        return temp;
+        
     }
 
     /**
@@ -50,7 +56,10 @@ public class SandboxMapas
      */
     public List<String> getLlavesComoListaInvertida( )
     {
-        return null;
+    	List<String> temp = new ArrayList<String>(this.mapaCadenas.keySet());
+        temp.sort(Comparator.reverseOrder());
+      
+        return temp;
     }
 
     /**
@@ -61,7 +70,9 @@ public class SandboxMapas
      */
     public String getPrimera( )
     {
-        return null;
+    	if (this.mapaCadenas.isEmpty()) return null;
+    	List<String> temp = new ArrayList<String>(this.getLlavesComoListaInvertida());
+    	return temp.getLast();
     }
 
     /**
@@ -72,7 +83,9 @@ public class SandboxMapas
      */
     public String getUltima( )
     {
-        return null;
+    	if (this.mapaCadenas.isEmpty()) return null;
+    	List<String> temp = new ArrayList<String>(this.getLlavesComoListaInvertida());
+    	return temp.getFirst();
     }
 
     /**
@@ -83,7 +96,12 @@ public class SandboxMapas
      */
     public Collection<String> getLlaves( )
     {
-        return null;
+        Collection<String> temp = new ArrayList<String>();
+        
+        for ( String i : this.mapaCadenas.keySet()) {
+        	temp.add(i.toUpperCase());
+        }
+        return temp;
     }
 
     /**
@@ -92,7 +110,12 @@ public class SandboxMapas
      */
     public int getCantidadCadenasDiferentes( )
     {
-        return -1;
+Collection<String> temp = new ArrayList<String>();
+        
+        for ( String i : this.mapaCadenas.values()) {
+        	temp.add(i.toUpperCase());
+        }
+        return temp.size();
     }
 
     /**
@@ -104,7 +127,10 @@ public class SandboxMapas
      */
     public void agregarCadena( String cadena )
     {
-
+    	
+    	String llaveInvertida = new StringBuilder(cadena).reverse().toString();
+		
+    	this.mapaCadenas.put(llaveInvertida, cadena);
     }
 
     /**
@@ -113,6 +139,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConLLave( String llave )
     {
+    	this.mapaCadenas.remove(llave);
 
     }
 
@@ -122,6 +149,13 @@ public class SandboxMapas
      */
     public void eliminarCadenaConValor( String valor )
     {
+    	for(Map.Entry<String,String> entry: this.mapaCadenas.entrySet() ) {
+    		String k = entry.getKey();
+    		if (this.mapaCadenas.get(k).equalsIgnoreCase(valor)) {
+    			this.mapaCadenas.remove(k);
+    		}
+    			
+    	}
 
     }
 
@@ -133,6 +167,13 @@ public class SandboxMapas
      */
     public void reiniciarMapaCadenas( List<Object> objetos )
     {
+    	this.mapaCadenas.clear();
+
+    	for (Object obj : objetos) {
+    		String cadena = obj.toString();
+    		String llaveInvertida = new StringBuilder(cadena).reverse().toString();
+    		this.mapaCadenas.put(llaveInvertida, cadena);
+    	}
 
     }
 
@@ -141,6 +182,16 @@ public class SandboxMapas
      */
     public void volverMayusculas( )
     {
+    	
+    	Map<String,String> temp = new HashMap<String,String>();
+    	
+    	for(Map.Entry <String,String> entry : this.mapaCadenas.entrySet()) {
+    		String k = entry.getKey();
+    		String v = entry.getValue();
+    		temp.put(k.toUpperCase(),v);
+    			
+    	}
+    	this.mapaCadenas = temp;
 
     }
 
@@ -151,7 +202,13 @@ public class SandboxMapas
      */
     public boolean compararValores( String[] otroArreglo )
     {
-        return false;
+    	for (String cadena : otroArreglo) {
+            if (!this.mapaCadenas.containsValue(cadena)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
