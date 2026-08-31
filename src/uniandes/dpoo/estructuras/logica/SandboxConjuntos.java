@@ -1,5 +1,6 @@
 package uniandes.dpoo.estructuras.logica;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.NavigableSet;
@@ -39,7 +40,13 @@ public class SandboxConjuntos
      */
     public List<String> getCadenasComoLista( )
     {
-        return null;
+    	
+    	List<String> result = new ArrayList<String>();
+    	
+    	for (String i : this.arbolCadenas) {
+    		result.add(i);
+    	}
+        return result;
     }
 
     /**
