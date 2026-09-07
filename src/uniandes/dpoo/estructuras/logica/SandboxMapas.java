@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.TreeSet;
 
 /**
@@ -71,8 +72,9 @@ public class SandboxMapas
     public String getPrimera( )
     {
     	if (this.mapaCadenas.isEmpty()) return null;
-    	List<String> temp = new ArrayList<String>(this.getLlavesComoListaInvertida());
-    	return temp.getLast();
+    	List<String> temp = new ArrayList<String>(this.getValoresComoLista());
+    	temp.sort(Comparator.naturalOrder());
+    	return temp.get(0);
     }
 
     /**
@@ -84,8 +86,9 @@ public class SandboxMapas
     public String getUltima( )
     {
     	if (this.mapaCadenas.isEmpty()) return null;
-    	List<String> temp = new ArrayList<String>(this.getLlavesComoListaInvertida());
-    	return temp.getFirst();
+    	List<String> temp = new ArrayList<String>(this.getValoresComoLista());
+    	temp.sort(Comparator.reverseOrder());
+    	return temp.get(0);
     }
 
     /**
@@ -110,11 +113,8 @@ public class SandboxMapas
      */
     public int getCantidadCadenasDiferentes( )
     {
-Collection<String> temp = new ArrayList<String>();
+    	NavigableSet<String> temp = new TreeSet<String>(this.mapaCadenas.values());
         
-        for ( String i : this.mapaCadenas.values()) {
-        	temp.add(i.toUpperCase());
-        }
         return temp.size();
     }
 
@@ -149,12 +149,17 @@ Collection<String> temp = new ArrayList<String>();
      */
     public void eliminarCadenaConValor( String valor )
     {
+    	String elem = null;
     	for(Map.Entry<String,String> entry: this.mapaCadenas.entrySet() ) {
-    		String k = entry.getKey();
-    		if (this.mapaCadenas.get(k).equalsIgnoreCase(valor)) {
-    			this.mapaCadenas.remove(k);
+    		String k = entry.getValue();
+    		if (k.equalsIgnoreCase(valor)) {
+    			elem =  entry.getKey();
+    			break;
     		}
     			
+    	}
+    	if(elem != null ) {
+    		this.mapaCadenas.remove(elem);
     	}
 
     }

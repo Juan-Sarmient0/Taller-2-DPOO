@@ -99,7 +99,7 @@ public class SandboxListas
      */
     public void agregarEntero( int entero )
     {
-    	this.listaEnteros.addLast(entero);
+    	this.listaEnteros.add(entero);
     }
 
     /**
@@ -109,7 +109,7 @@ public class SandboxListas
      */
     public void agregarCadena( String cadena )
     {
-    	this.listaCadenas.addLast(cadena);
+    	this.listaCadenas.add(cadena);
     }
 
     /**
@@ -119,7 +119,7 @@ public class SandboxListas
     public void eliminarEntero( int valor )
     {
     	for(int i = 0; i < this.listaEnteros.size(); i++) {
-    		int curr = this.listaEnteros.get(i);
+    		Integer curr = this.listaEnteros.get(i);
     		if (curr == valor) {
     			this.listaEnteros.remove(i);
     			i--;
@@ -311,7 +311,7 @@ public class SandboxListas
     	List<Integer> temp = new ArrayList<Integer>();
     	int i = 0;
     	while (i<cantidad) {
-    		temp.addLast((int)(Math.random() * (maximo - minimo + 1)) + minimo);
+    		temp.add((int)(Math.random() * (maximo - minimo + 1)) + minimo);
     		i++;
     	}
     	this.listaEnteros = temp;
