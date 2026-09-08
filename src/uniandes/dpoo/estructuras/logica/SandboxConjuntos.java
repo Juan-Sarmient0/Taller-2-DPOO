@@ -153,7 +153,7 @@ String paraEliminar = null;
      */
     public void eliminarPrimera( )
     {
-    	this.arbolCadenas.removeFirst();
+    	if(!this.arbolCadenas.isEmpty()) this.arbolCadenas.removeFirst();
 
     }
 
